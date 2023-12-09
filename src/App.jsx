@@ -33,6 +33,19 @@ const App = () => {
         </div>
         <button type="submit">Adicionar à Biblioteca</button>
       </form>
+      <div className="games">
+        {games.map((game) => {
+          return(
+            <div key={game.id}>
+              <img src={game.cover} alt={game.title} />
+              <div>
+              <h2>{game.title}</h2>
+              <button>Remover</button>
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
