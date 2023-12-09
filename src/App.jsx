@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 
 const App = () => {
-  const [games, setGames] = useState([]);
+  const [games, setGames] = useState(() => {
+    const storedGames = localStorage.getItem("obc-game-lib")
+    if(!storedGames) return [];
+    return JSON.parse(storedGames);
+  });
   const [title, setTitle] = useState("");
   const [cover, setCover] = useState("");
 
@@ -9,11 +13,19 @@ const App = () => {
     const id = Math.floor(Math.random() * 1000000);
     const game = {id, title, cover};
 
-    setGames(state => [...state, game])
+    setGames(state => {
+      const newState = [...state, game];
+      localStorage.setItem("obc-game-lib", JSON.stringify(newState))
+      return newState;
+    })
   }
 
   const removeGame = (id) => {
-    setGames(state => state.filter(game => game.id !== id))
+    setGames(state => {
+      const newState = state.filter(game => game.id !== id);
+      localStorage.setItem("obc-game-lib", JSON.stringify(newState));
+      return newState;
+    })
   }
 
   const handleSubmit = (ev) => {
