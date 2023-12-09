@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
 const App = () => {
+  const [title, setTitle] = useState("");
+  const [cover, setCover] = useState("");
+
+  const handleSubmit = (ev) => {
+    ev.preventDefault()
+    setTitle(ev.target.value);
+
+    setCover(ev.target.value);
+  }
+
   return(
     <div id="app">
       <h1>Biblioteca de jogos</h1>
